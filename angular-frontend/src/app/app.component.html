@@ -7,27 +7,8 @@
                 <img src="assets/images/logo.png" alt="dierenwinkel" class="img-responsive">
             </a>
         </div>
-        <div class="menu-sidebar-content js-scrollbar1">
-            <nav class="navbar-sidebar">
-                <ul class="list-unstyled navbar-list">
-                    <li>
-                        <a routerLink="/category/1" routerLinkActive="active-link">Kattenvoer</a>
-                    </li>
-                    <li>
-                        <a routerLink="/category/2" routerLinkActive="active-link">Hondenvoer</a>
-                    </li>
-                    <li>
-                        <a routerLink="/category/3" routerLinkActive="active-link">Kattenspeeltjes</a>
-                    </li>
-                    <li>
-                        <a routerLink="/category/4" routerLinkActive="active-link">Hondenspeeltjes</a>
-                    </li>
-                    <li>
-                        <a routerLink="/category/5" routerLinkActive="active-link">Dieren hygiëne</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+
+        <app-product-category-menu></app-product-category-menu>
     </aside>
     <!-- END MENU SIDEBAR-->
 
@@ -60,7 +41,7 @@
         <!-- END HEADER DESKTOP-->
 
         <!-- MAIN CONTENT-->
-        <router-outlet></router-outlet>>
+        <router-outlet></router-outlet>
 
     </div>
 </div>
