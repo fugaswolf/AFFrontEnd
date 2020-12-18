@@ -6,14 +6,13 @@ import { ProductService } from 'src/app/services/product.service';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list-grid.component.html',
-  //templateUrl: './product-list-table.component.html',
-  //templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
 
   products: Product[];
   currentCategoryId: number;
+  searchMode: boolean;
 
   constructor(private productService: ProductService, private route: ActivatedRoute) { }
 
@@ -24,24 +23,49 @@ export class ProductListComponent implements OnInit {
   }
 
   listProducts(){
-    // is de Id param meegegeven?
-    const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
+      this.searchMode = this.route.snapshot.paramMap.has('keyword'); 
 
-    if(hasCategoryId){
-      // convert id string param to number (by using the + symbol)
-      this.currentCategoryId = +this.route.snapshot.paramMap.get('id');
-    } else {
-      // als er geen id meegegeven wordt dan.. standaard: category 1 wordt weergeven
-      this.currentCategoryId = 1;
+      if(this.searchMode){
+        this.handleSearchProducts();
 
-    }
-
-    // weergeef de producten met de juiste id
-    this.productService.getProductList(this.currentCategoryId).subscribe(
-      data => {
-        this.products = data;
+      }else {
+        this.handleListProducts();
       }
-    )
+
+      
+  }
+  handleSearchProducts() {
+      const theKeyword: string = this.route.snapshot.paramMap.get('keyword');
+
+      //search products by the keyword
+      this.productService.searchProducts(theKeyword).subscribe(
+        data => {
+          this.products = data;
+        }
+      );
+  }
+
+  handleListProducts(){
+
+     // is de Id param meegegeven?
+     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
+
+     if(hasCategoryId){
+       // convert id string param to number (by using the + symbol)
+       this.currentCategoryId = +this.route.snapshot.paramMap.get('id');
+     } else {
+       // als er geen id meegegeven wordt dan.. standaard: category 1 wordt weergeven
+       this.currentCategoryId = 1;
+ 
+     }
+ 
+     // weergeef de producten met de juiste id
+     this.productService.getProductList(this.currentCategoryId).subscribe(
+       data => {
+         this.products = data;
+       }
+     )
+
   }
 
 }
