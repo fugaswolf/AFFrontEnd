@@ -3,24 +3,24 @@
         <div class="container-fluid">
             <div class="row">
 
-                <!-- looping over the products collection -->
-                <div *ngFor="let tempProduct of products" class="col-md-3">
+                <div *ngFor="let tempProduct of products" class="col-md-3 d-flex align-items-stretch" style="margin-left: 20px">
+                    <div class="card product-box" style="width: 18rem; ">
+                        <a routerLink="/products/{{ tempProduct.id }}"><img class="card-img-top img-responsive" src="{{ tempProduct.imageUrl }}" alt=""></a>
+                        <div class="card-body">
+                            <h1 class="card-title">{{ tempProduct.name }}</h1>
+                            <div class="card-text">
+                                <div class="price">{{ tempProduct.price | currency:'EUR' }}</div>
+                        <button (click)="addToCart()" class="btn btn-primary btn-sm">Voeg toe aan de winkelmand</button>
 
-                    <div class="product-box">
-
-                        <a routerLink="/products/{{ tempProduct.id }}">
-                            <img src="{{ tempProduct.imageUrl }}" class="img-responsive">
-                        </a>
-
-                        <a routerLink="/products/{{ tempProduct.id }}">
-                            <h1>{{ tempProduct.name }}</h1>
-                        </a>
-                        
-                        <div class="price">{{ tempProduct.price | currency:'EUR' }}</div>
-                        <a href="#" class="primary-btn">Voeg toe aan de winkelmand</a>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
+
+                <!--HIER-->
+
+                <!-- EINDE HIER-->
+
 
                 <!-- als er geen producten gevonden zijn-->
                 <div *ngIf="products?.length == 0" class="alert alert-warning col-md-12" role="alert">
@@ -28,6 +28,43 @@
                 </div>
 
             </div>
+
+            <!-- pagination component -->
+
+            <div class="footer-pagination">
+                <div class="row">
+                    <div class="col-md-6"></div>
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-9" style="padding-left: 30%">
+
+                                <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize"
+                                    [collectionSize]="theTotalElements" [maxSize]="5" [boundaryLinks]="true"
+                                    (pageChange)="listProducts()">
+
+                                </ngb-pagination>
+
+                            </div>
+                            <div class="col-md-3 mt-2" style="text-align: right;">
+                                <span class="mr-2">Page Size</span>
+
+                                <select (change)="updatePageSize($any($event.target).value)">
+                                    <option selected="true">5</option>
+                                    <option>10</option>
+                                    <option>20</option>
+                                    <option>50</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- end pagination component-->
+
         </div>
     </div>
 </div>
