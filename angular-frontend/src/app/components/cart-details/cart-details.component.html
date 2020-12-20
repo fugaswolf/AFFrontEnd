@@ -1,7 +1,7 @@
 <div class="main-content">
     <div class="section-content section-content-p30">
         <div class="container-fluid">
-
+            <div *ngIf="cartItems.length > 0">
             <table class="table table-bordered">
                 <tr>
                     <th width="20%">Product afbeelding</th>
@@ -19,7 +19,7 @@
                     </td>
                     <td>
                         <div class="items">
-                            <label>Hoeveelheid:</label> {{ tempCartItem.quantity }}
+                            <label>Hoeveelheid:</label>
                         </div>
 
                         <p class="mt-2">Subtotaal: {{ tempCartItem.quantity * tempCartItem.price | currency: 'USD' }}</p>
@@ -36,6 +36,11 @@
                 </tr>
 
             </table>
+        </div>
+        <div *ngIf="cartItems.length == 0" role="alert" class="alert alert-warning">
+            Jouw winkelmand is leeg.
+
+        </div>
 
         </div>
     </div>
