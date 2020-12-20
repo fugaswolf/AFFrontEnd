@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { CartService } from 'src/app/services/cart.service';
 import { FormService } from 'src/app/services/form.service';
 import { FormValidators } from 'src/app/validators/form-validators';
 
@@ -19,10 +20,14 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private formService: FormService
+    private formService: FormService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
+    this.reviewCartDetails();
+    
+
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
         firstName: new FormControl('', 
@@ -102,6 +107,20 @@ export class CheckoutComponent implements OnInit {
       console.log('Retrieved credit card years: ' + JSON.stringify(data));
       this.creditCardYears = data;
     });
+  }
+  reviewCartDetails() {
+
+
+    // subscribe to cartService.totalQuantity
+    this.cartService.totalQuantity.subscribe(
+      totalQuantity => this.totalQuantity = totalQuantity
+    );
+
+    // subscribe to cartService.totalPrice
+    this.cartService.totalPrice.subscribe(
+      totalPrice => this.totalPrice = totalPrice
+    );
+      
   }
 
   copyShippingAddressToBillingAddress(event) {
