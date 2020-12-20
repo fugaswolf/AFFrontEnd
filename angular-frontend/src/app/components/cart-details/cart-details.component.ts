@@ -34,4 +34,16 @@ export class CartDetailsComponent implements OnInit {
     this.cartService.computeCartTotals();
   }
 
+  incrementQty(theCartItem: CartItem){
+      this.cartService.addToCart(theCartItem);
+  }
+
+  decrementQty(theCartItem: CartItem){
+      this.cartService.decrementQty(theCartItem);
+  }
+  remove(theCartItem: CartItem){
+    this.cartService.remove(theCartItem);
+
+  }
+
 }

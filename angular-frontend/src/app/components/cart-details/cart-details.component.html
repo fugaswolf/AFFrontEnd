@@ -20,7 +20,24 @@
                     <td>
                         <div class="items">
                             <label>Hoeveelheid:</label>
-                        </div>
+                            <div class="row no-gutters">
+                                <div class="col">
+                                    <button (click)="incrementQty(tempCartItem)" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <div class="col ml-4 mr-2">
+                                    {{tempCartItem.quantity}}
+                                </div>
+                                <div class="col">
+                                    <button (click)="decrementQty(tempCartItem)" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                                <div class="col-8"></div>
+                            </div>
+                        </div>  
+                        <button (click)="remove(tempCartItem)"class="btn btn-primary btn-sm mt-2">Remove</button>
 
                         <p class="mt-2">Subtotaal: {{ tempCartItem.quantity * tempCartItem.price | currency: 'USD' }}</p>
                     </td>
