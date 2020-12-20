@@ -1,0 +1,223 @@
+
+<div class="main-content page-m">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+
+            <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()">
+
+            
+                <div formGroupName="customer" class="form-area">
+                    <h3>Klant</h3>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Voornaam</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="firstName" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Achternaam</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="lastName" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Email</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="email" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+       
+                <div formGroupName="shippingAddress" class="form-area">
+                    <h3>Bezorgadres</h3>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Land</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select formControlName="country">
+                                    <option>België</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Straat + huis nr</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="street" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Stad</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="city" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Postcode</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="postalCode" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="input-space">
+                    <label class="au-checkbox">
+                        <input type="checkbox" (change)="copyShippingAddressToBillingAddress($event)">
+                        <span class="au-checkmark"></span>Facturatie adres zelfde als bezorgadres
+                    </label>
+                </div>
+
+
+             
+                <div formGroupName="billingAddress" class="form-area">
+                    <h3>Facturatie adres</h3>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Land</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select formControlName="country">
+                                    <option>TO DO</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Straat + huis nr</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="street" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Stad</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="city" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Postcode</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="postalCode" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+           
+                <div formGroupName="creditCard" class="form-area">
+                    <h3>Betaalkaart</h3>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Kaart type</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select formControlName="cardType">
+                                    <option>Visa</option>
+                                    <option>Mastercard</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Naam kaarthouder</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="nameOnCard" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Kaarnummer</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="cardNumber" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>CVC code</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="securityCode" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Verval maand</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select formControlName="expirationMonth">
+                                    <option>12</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Verval jaar</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select formControlName="expirationYear">
+                                    <option>2024</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Order details -->
+                <div class="form-area">
+                    <h3>Samenvatting van jouw bestelling</h3>
+
+                    <p>Totaal hoeveelheid: {{ totalQuantity }}</p>
+                    <p>Verzendkosten: GRATIS</p>
+                    <p>Totaal prijs: {{ totalPrice | currency: 'EUR' }}</p>
+                </div>
+
+                <!-- submit button-->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-info">Kopen</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
