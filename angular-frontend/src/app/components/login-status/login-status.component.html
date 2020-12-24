@@ -1,0 +1,9 @@
+<div class="login-status-header">
+
+    <div *ngIf="getUsername()" class="login-status-user-info">
+        Welkom, {{ getUsername() }}
+    </div>
+
+    <button *ngIf="!getUsername()" routerLink="/login" class="security-btn au-btn-submit">Login</button>
+    <button *ngIf="getUsername()" routerLink="/" (click)="logout()" class="security-btn ">Logout</button>
+</div>
