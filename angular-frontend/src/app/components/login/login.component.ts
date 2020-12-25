@@ -1,51 +1,50 @@
 import { Component, OnInit } from '@angular/core';
 import { OktaAuthService } from '@okta/okta-angular';
-import * as OktaSignin from '@okta/okta-signin-widget'
-import {OAuthService, AuthConfig} from 'angular-oauth2-oidc';
+import * as OktaSignIn from '@okta/okta-signin-widget';
 
 import AppConfig from '../../config/appconfig';
-
-export const authConfig: AuthConfig = {
-  clientId: '0oa33t0ul5fV8qYj35d6',
-  issuer: 'https://dev-4777435.okta.com/oauth2/default',
-  redirectUri: 'http://localhost:4200/login/callback',
-}
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
+
 export class LoginComponent implements OnInit {
 
- 
+  oktaSignin: any;
 
-  constructor(private oauthService: OAuthService) { 
+  constructor(private oktaAuthService: OktaAuthService) { 
 
-    this.oauthService.configure(authConfig);
-    this.oauthService.loadDiscoveryDocumentAndTryLogin();
-
+    this.oktaSignin = new OktaSignIn({
+      logo: 'assets/images/logo.png',
+      baseUrl: AppConfig.oidc.issuer.split('/oauth2')[0],
+      clientId: AppConfig.oidc.clientId,
+      redirectUri: AppConfig.oidc.redirectUri,
+      authParams: {
+        pkce: true,
+        issuer: AppConfig.oidc.issuer,
+        scopes: AppConfig.oidc.scopes
+      }
+    });
 
   }
 
-  ngOnInit(){ 
+  ngOnInit(): void {
+    this.oktaSignin.remove();
 
-  }
-
-  login(){
-    this.oauthService.initLoginFlow();
-  }
-
-  logout(){
-    this.oauthService.logOut();
-  }
-
-  getUsername(){
-    const claims = this.oauthService.getIdentityClaims();
-    if(!claims) {
-      return null;
-    }
-    return claims['name'];
+    this.oktaSignin.renderEl({
+      el: '#okta-sign-in-widget'},
+      (response) => {
+        if (response.status === 'SUCCESS') {
+          this.oktaAuthService.signInWithRedirect();
+        }
+      },
+      (error) => {
+        throw error;
+      }
+    );
   }
 
 }

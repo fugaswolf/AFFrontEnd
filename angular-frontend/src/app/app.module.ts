@@ -15,29 +15,29 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
-
-import { OAuthModule } from 'angular-oauth2-oidc';
-
 import AppConfig from '../app/config/appconfig';
+
 import {
   OKTA_CONFIG,
   OktaAuthModule,
-  OktaCallbackComponent,
-  OktaAuthGuard
+  OktaCallbackComponent
 } from '@okta/okta-angular';
 
-const otkaConfig = Object.assign({
+const oktaConfig = Object.assign({
   onAuthRequired: (injector) => {
     const router = injector.get(Router);
-    router.nagivate(['/login']);
+
+    // Redirect the user to your custom login page
+    router.navigate(['/login']);
   }
 }, AppConfig.oidc);
 
 
 
-
 const routes: Routes = [
-  { path: 'login', component: LoginComponent},
+  {path: 'login/callback', component: OktaCallbackComponent},
+  {path: 'login', component: LoginComponent},
+
   { path: 'checkout', component: CheckoutComponent},
   { path: 'cart-details', component: CartDetailsComponent},
   { path: 'products/:id', component: ProductDetailsComponent},
@@ -60,8 +60,6 @@ const routes: Routes = [
     ProductDetailsComponent,
     CartStatusComponent,
     CartDetailsComponent,
-    CartDetailsComponent,
-    CheckoutComponent,
     CheckoutComponent,
     LoginComponent,
     LoginStatusComponent
@@ -72,10 +70,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     NgbModule,
     ReactiveFormsModule,
-    OktaAuthModule,
-    OAuthModule.forRoot()
+    OktaAuthModule
   ],
-  providers: [ProductService, { provide: OKTA_CONFIG, useValue: otkaConfig }],
+  providers: [ProductService, { provide: OKTA_CONFIG, useValue: oktaConfig }],
   bootstrap: [AppComponent]
 })
 
