@@ -65,29 +65,84 @@ export class ProductListComponent implements OnInit {
 
   handleListProducts(){
 
-     // is de Id param meegegeven?
-     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
+    //  // is de Id param meegegeven?
+    //  const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
 
-     if(hasCategoryId){
-       // convert id string param to number (by using the + symbol)
-       this.currentCategoryId = +this.route.snapshot.paramMap.get('id');
-     } else {
-       // als er geen id meegegeven wordt dan.. standaard: category 1 wordt weergeven
-       this.currentCategoryId = 1;
-     }
+    //  if(hasCategoryId){
+    //    // convert id string param to number (by using the + symbol)
+    //    this.currentCategoryId = +this.route.snapshot.paramMap.get('id');
+    //  } else {
+    //    // als er geen id meegegeven wordt dan.. standaard: category 1 wordt weergeven
+    //    this.currentCategoryId = 1;
+    //  }
 
-     //check if the current cat id is different from the previous
+    //  //check if the current cat id is different from the previous
 
 
-     if(this.previousCategoryId != this.currentCategoryId){
-       this.thePageNumber = 1;
-     }
+    //  if(this.previousCategoryId != this.currentCategoryId){
+    //    this.thePageNumber = 1;
+    //  }
 
-     this.previousCategoryId = this.currentCategoryId;
-     console.log(`currentCategoryId=${this.currentCategoryId}, thePageNumber=${this.thePageNumber}`)
+    //  this.previousCategoryId = this.currentCategoryId;
+    //  console.log(`currentCategoryId=${this.currentCategoryId}, thePageNumber=${this.thePageNumber}`)
  
-     // weergeef de producten met de juiste id
-     this.productService.getProductListPagination(this.thePageNumber - 1, this.thePageSize, this.currentCategoryId).subscribe(this.processResult());
+    //  // weergeef de producten met de juiste id
+    //  this.productService.getProductListPagination(this.thePageNumber - 1, this.thePageSize, this.currentCategoryId).subscribe(this.processResult());
+  
+      // check if "id" parameter is available
+
+      const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
+
+
+
+      if(hasCategoryId) {
+
+        // now get the products for the given category id
+    
+        this.productService.getProductListPagination(this.thePageNumber - 1,
+    
+                                                   this.thePageSize,
+    
+                                                   this.currentCategoryId)
+    
+                                                   .subscribe(this.processResult());
+    
+        }
+    
+        else{
+    
+          this.productService.getProductListPaginateNoCategory(this.thePageNumber - 1,
+    
+            this.thePageSize)
+    
+            .subscribe(this.processResult());
+    
+        }
+  
+  
+    
+      // Check if we have a different category than previous
+    
+      // if we have a different category id than previous
+  
+      // then set thePageNumber back to 1
+  
+      if (this.previousCategoryId != this.currentCategoryId) {
+  
+        this.thePageNumber = 1;
+  
+      }
+  
+  
+  
+      this.previousCategoryId = this.currentCategoryId;
+  
+  
+  
+      console.log(`currentCategoryId=${this.currentCategoryId}, thePageNumber=${this.thePageNumber}`);
+
+
+  
   }
 
   processResult(){

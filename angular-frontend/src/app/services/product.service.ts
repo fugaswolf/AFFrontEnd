@@ -65,6 +65,18 @@ export class ProductService {
     return this.httpClient.get<Product>(productUrl);
   }
 
+  
+
+  getProductListPaginateNoCategory(thePage: number, 
+    thePageSize: number): Observable<GetResponseProducts> {
+ 
+    // need to build URL based on category id, page and size 
+    const searchUrl = `${this.baseUrl}`
+    + `?page=${thePage}&size=${thePageSize}`;
+ 
+    return this.httpClient.get<GetResponseProducts>(searchUrl);
+  }
+
 }
 
 
