@@ -98,7 +98,9 @@ export class ProductListComponent implements OnInit {
       if(hasCategoryId) {
 
         // now get the products for the given category id
-    
+        this.currentCategoryId = +this.route.snapshot.paramMap.get('id');
+
+        
         this.productService.getProductListPagination(this.thePageNumber - 1,
     
                                                    this.thePageSize,
